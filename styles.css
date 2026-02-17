@@ -1,0 +1,175 @@
+:root {
+    --bg-dark: #0A0A0A;
+    --gold: #F7C600;
+    --text-light: #F5F5F5;
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body, html { 
+    height: 100%; width: 100%; overflow: hidden; 
+    background-color: var(--bg-dark); color: var(--text-light); font-family: var(--sans);
+}
+
+/* Navbar */
+.navbar { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 40px 0; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+.logo { font-size: 2rem; text-decoration: none; color: white; font-family: var(--serif); font-weight: 600; }
+.logo span { color: var(--gold); }
+.nav-links { display: flex; list-style: none; gap: 40px; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+.btn-menu-outline { border: 1px solid rgba(255,255,255,0.4); padding: 10px 24px !important; transition: 0.3s; }
+.btn-menu-outline:hover { background: white; color: black; }
+
+/* Slider Fix: No vanishing images */
+.hero-slider { height: 100vh; width: 100vw; position: relative; }
+.slide { 
+    position: absolute; inset: 0; opacity: 0; 
+    transition: opacity 1.5s ease-in-out; 
+    display: flex; align-items: center; justify-content: center;
+}
+.slide.active { opacity: 1; z-index: 1; }
+
+.slide-bg {
+    position: absolute; inset: 0; background-size: cover; background-position: center; z-index: -1;
+}
+
+/* The fixed animation: only runs when slide is active */
+.slide.active .slide-bg {
+    animation: zoomEffect 15s linear forwards;
+}
+
+@keyframes zoomEffect {
+    from { transform: scale(1); }
+    to { transform: scale(1.15); }
+}
+
+.hero-content { text-align: center; z-index: 5; }
+.hero-content h1 { font-family: var(--serif); font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 20px; font-weight: 300; }
+.hero-content h1 em { font-style: italic; }
+.hero-btns { display: flex; gap: 20px; justify-content: center; margin-top: 30px; }
+
+.btn-outline-hero {
+    padding: 16px 36px; border: 1px solid white; color: white; text-decoration: none;
+    text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; 
+    position: relative; overflow: hidden; background: rgba(0,0,0,0.2);
+}
+.btn-outline-hero:hover { color: black; border-color: var(--gold); }
+.btn-outline-hero::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: var(--gold); transition: 0.4s; z-index: -1;
+}
+.btn-outline-hero:hover::before { left: 0; }
+
+/* Chatbot Styles */
+.chat-trigger {
+    position: fixed; bottom: 80px; right: 30px; width: 65px; height: 65px;
+    border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; cursor: pointer; z-index: 1000;
+}
+.chat-trigger img { width: 100%; height: 100%; object-fit: cover; }
+
+.chat-container {
+    position: fixed; bottom: 160px; right: 30px; width: 350px; height: 450px;
+    background: #111; border: 1px solid #333; border-radius: 12px; display: none;
+    flex-direction: column; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.chat-container.active { display: flex; }
+.chat-header { padding: 15px; background: #1a1a1a; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+.chat-profile { display: flex; align-items: center; gap: 10px; }
+.chat-profile img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+.chat-name { display: block; font-weight: 600; font-size: 0.9rem; }
+.chat-status { font-size: 0.7rem; color: #888; }
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.bot-msg, .user-msg { padding: 10px 14px; border-radius: 15px; font-size: 0.85rem; max-width: 85%; }
+.bot-msg { background: #222; align-self: flex-start; }
+.user-msg { background: var(--gold); color: black; align-self: flex-end; }
+.chat-footer { padding: 10px; display: flex; gap: 5px; }
+.chat-footer input { flex: 1; background: #222; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; }
+.chat-footer button { background: var(--gold); border: none; padding: 0 15px; border-radius: 5px; cursor: pointer; }
+
+/* Footer */
+.minimal-footer {
+    position: fixed; bottom: 20px; width: 100%; text-align: center;
+    font-size: 0.7rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); z-index: 5;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .chat-container { width: 90%; right: 5%; bottom: 150px; }
+}
+
+/* Chat Badge Styling */
+.chat-badge {
+    position: absolute;
+    top: -10px;
+    right: 50%;
+    transform: translateX(50%);
+    background: var(--gold);
+    color: black;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    animation: badgePulse 3s infinite ease-in-out;
+    pointer-events: none; /* Allows clicks to pass through to the button */
+}
+
+/* Subtle "Breath" Animation */
+@keyframes badgePulse {
+    0%, 100% {
+        transform: translateX(50%) translateY(0);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateX(50%) translateY(-5px);
+        opacity: 1;
+        box-shadow: 0 6px 15px rgba(247, 198, 0, 0.4);
+    }
+}
+
+/* Optimized Chat Trigger */
+.chat-trigger {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%; /* Force button to be a circle */
+    border: 2px solid var(--gold);
+    background: var(--bg-dark);
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;         /* Remove default button padding */
+    display: flex;      /* Center the image */
+    align-items: center;
+    justify-content: center;
+    overflow: visible;  /* Allow the badge to be seen outside */
+}
+
+.chat-trigger img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Prevents stretching */
+    border-radius: 50%; /* Forces the square image into a circle */
+    display: block;
+}
+
+/* Add a hover effect to the image for extra polish */
+.chat-trigger:hover img {
+    filter: brightness(1.2);
+    transition: 0.3s ease;
+}
+
+/* Optimized: Hide badge when chat is open */
+.chat-container.active + .chat-trigger .chat-badge {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}

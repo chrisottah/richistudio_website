@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Session | RICHI STUDIOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="booking-section container section-padding">
+        <div class="form-wrapper">
+            <h2>Secure Your <em>Date</em></h2>
+            <p>Tell me about your vision, and let's create something powerful.</p>
+
+            <form id="booking-form" class="luxury-form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name *" required>
+                    <input type="email" id="email" placeholder="Email *" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Phone *" required>
+                    <select id="job-type" required>
+                        <option value="" disabled selected>Select Job Type</option>
+                        <option value="commercial">Commercial / Advertising</option>
+                        <option value="event">Event</option>
+                        <option value="family-portrait">Family Portrait</option>
+                        <option value="photo-session">Photo Session (eg Album cover, Birthday shoot)</option>
+                        <option value="headshots">Headshots</option>
+                        <option value="maternity">Maternity</option>
+                        <option value="newborn">Newborn</option>
+                        <option value="pre-wedding">Pre-wedding Shoot</option>
+                        <option value="graduation">Graduation Photo or Video</option>
+                        <option value="proposal">Proposal Shoot</option>
+                        <option value="real-estate">Real Estate and Architecture</option>
+                        <option value="video-dop">Video Production (DOP)</option>
+                        <option value="wedding-full">Wedding Full Coverage</option>
+                        <option value="wedding-photography">Wedding Photography</option>
+                        <option value="wedding-video">Wedding Video Production</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="date" id="event-date" placeholder="Main Shoot Date *" required>
+                    <input type="text" id="location" placeholder="Event / Shoot Location *" required>
+                </div>
+
+                <div class="form-group">
+                    <select id="referral" required>
+                        <option value="" disabled selected>How did you hear about us? *</option>
+                        <option value="hitched">Hitched</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="google">Google</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="referral">Referral</option>
+                        <option value="word-of-mouth">Word of mouth</option>
+                    </select>
+                </div>
+
+                <textarea id="additional-info" rows="5" placeholder="Additional Information"></textarea>
+
+                <button type="submit" class="btn-outline-hero">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

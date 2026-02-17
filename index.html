@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RICHI STUDIOS | Ricardo Afrika Photography</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-light homepage">
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="bookings.html" class="btn-menu-outline">Book Now</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <main class="hero-slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero1.webp')"></div>
+                <div class="hero-content">
+                    <h1>Capturing the <em>Soul</em> of Light</h1>
+                    <p>Editorial photography based in North East England.</p>
+                    <div class="hero-btns">
+                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
+                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero2.webp')"></div>
+                <div class="hero-content">
+                    <h1>Lived-in & <em>Textured</em></h1>
+                    <p>Portraits that celebrate confidence and individuality.</p>
+                    <div class="hero-btns">
+                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
+                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero3.webp')"></div>
+                <div class="hero-content">
+                    <h1>The <em>Electricity</em> in the Air</h1>
+                    <p>Event photography chasing rare, unmissable moments.</p>
+                    <div class="hero-btns">
+                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
+                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-dots"></div>
+    </main>
+
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">Hi! I'm Ricardo's virtual assistant. Ask me about our wedding packages, portraits, or my photography style!</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask about services...">
+            <button id="send-chat">Send</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Chat with me</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+    <footer class="minimal-footer">
+        <p>Copyright 2026 Richi Studios. Developed by The Mystic Techie.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
