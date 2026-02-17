@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | RICHI STUDIOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* ════════════════════════════════════════
+           PAGE BASE
+        ════════════════════════════════════════ */
+        body.light-page {
+            background: #FAFAF8;
+            color: #1A1A1A;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: auto;
+        }
+
+        /* Subtle noise grain overlay for texture */
+        body.light-page::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ════════════════════════════════════════
+           OPENING STATEMENT — Full-width type
+        ════════════════════════════════════════ */
+        .contact-statement {
+            padding: 170px 6% 0;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .statement-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.1s forwards;
+        }
+        .statement-eyebrow::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+        }
+        .statement-eyebrow span {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .contact-statement h1 {
+            font-family: var(--serif);
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-weight: 300;
+            line-height: 0.95;
+            color: #1A1A1A;
+            letter-spacing: -1px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+        .contact-statement h1 em {
+            font-style: italic;
+            color: #999;
+        }
+
+        /* The gold rule that bleeds edge to edge */
+        .full-rule {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, var(--gold) 0%, #E8E8E4 60%, transparent 100%);
+            margin: 60px 0 0;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.5s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+
+        /* ════════════════════════════════════════
+           MAIN CONTENT GRID
+        ════════════════════════════════════════ */
+        .contact-body {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 6% 120px;
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 100px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* ════════════════════════════════════════
+           LEFT — Details & Links
+        ════════════════════════════════════════ */
+        .contact-details {
+            padding-top: 70px;
+            position: sticky;
+            top: 110px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        /* Primary contact block */
+        .detail-block {
+            margin-bottom: 52px;
+        }
+        .detail-block-label {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .detail-block-value {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-weight: 300;
+            color: #1A1A1A;
+            line-height: 1.5;
+        }
+        .detail-block-value a {
+            color: #1A1A1A;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+        .detail-block-value a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.35s ease;
+        }
+        .detail-block-value a:hover::after { width: 100%; }
+        .detail-block-value a:hover { color: #1A1A1A; }
+
+        /* Divider */
+        .detail-divider {
+            width: 36px;
+            height: 1px;
+            background: #E0E0DC;
+            margin: 40px 0;
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+            border-bottom: 1px solid #EEEEEA;
+            text-decoration: none;
+            color: #1A1A1A;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            group: true;
+        }
+        .social-link:first-child { border-top: 1px solid #EEEEEA; }
+        .social-link:hover { padding-left: 8px; color: #1A1A1A; }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #E0E0DC;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #999;
+            flex-shrink: 0;
+            transition: all 0.25s ease;
+            font-style: normal;
+        }
+        .social-link:hover .social-icon {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+        }
+
+        .social-name {
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+        }
+        .social-handle {
+            margin-left: auto;
+            font-size: 0.78rem;
+            color: #bbb;
+            font-weight: 300;
+            font-family: var(--serif);
+            font-style: italic;
+            transition: color 0.25s ease;
+        }
+        .social-link:hover .social-handle { color: #777; }
+
+        /* Response time note */
+        .response-note {
+            margin-top: 44px;
+            padding: 20px 24px;
+            background: #F3F3F0;
+            border-left: 2px solid var(--gold);
+        }
+        .response-note p {
+            font-size: 0.82rem;
+            line-height: 1.75;
+            color: #666;
+            font-weight: 300;
+        }
+        .response-note p strong {
+            color: #1A1A1A;
+            font-weight: 600;
+        }
+
+
+        /* ════════════════════════════════════════
+           RIGHT — Message Form
+        ════════════════════════════════════════ */
+        .contact-form-wrap {
+            padding-top: 70px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.55s forwards;
+        }
+
+        .form-section-label {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .form-section-title {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 50px;
+            color: #1A1A1A;
+        }
+        .form-section-title em { font-style: italic; color: #999; }
+
+        /* Field groups */
+        .cf-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .cf-row.full { grid-template-columns: 1fr; }
+
+        .cf-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+        .cf-group label {
+            font-size: 0.6rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #aaa;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .cf-group:focus-within label { color: #1A1A1A; }
+
+        .cf-group input,
+        .cf-group select,
+        .cf-group textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #D8D8D4;
+            color: #1A1A1A;
+            padding: 12px 0;
+            font-size: 0.95rem;
+            font-family: var(--sans);
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            border-radius: 0;
+            width: 100%;
+        }
+        .cf-group input:focus,
+        .cf-group select:focus,
+        .cf-group textarea:focus {
+            border-bottom-color: #1A1A1A;
+        }
+
+        /* Animated gold underline */
+        .cf-group::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+            pointer-events: none;
+        }
+        .cf-group:focus-within::after { width: 100%; }
+
+        .cf-group input::placeholder,
+        .cf-group textarea::placeholder { color: #C8C8C4; }
+
+        .cf-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A1A1A' stroke-width='1.5' fill='none' opacity='0.4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            padding-right: 24px;
+            color: #1A1A1A;
+        }
+        .cf-group select option { color: #1A1A1A; }
+        .cf-group select option:disabled { color: #bbb; }
+
+        .cf-group textarea {
+            resize: none;
+            min-height: 120px;
+            line-height: 1.75;
+        }
+
+        /* Validation */
+        .cf-group.error label { color: #c0392b; }
+        .cf-group.error input,
+        .cf-group.error select { border-bottom-color: #c0392b; }
+        .cf-error-msg {
+            font-size: 0.68rem;
+            color: #c0392b;
+            display: none;
+            margin-top: -6px;
+        }
+        .cf-group.error .cf-error-msg { display: block; }
+
+        /* Character counter for message */
+        .char-count {
+            text-align: right;
+            font-size: 0.68rem;
+            color: #C0C0BC;
+            margin-top: -24px;
+        }
+
+        /* Submit row */
+        .cf-submit-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .cf-privacy {
+            font-size: 0.72rem;
+            color: #bbb;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 260px;
+        }
+
+        .btn-send {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 48px;
+            background: #1A1A1A;
+            color: #fff;
+            border: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            font-family: var(--sans);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-send::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+        .btn-send:hover::before { transform: translateX(0); }
+        .btn-send:hover { color: #000; box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .btn-send:active { transform: scale(0.98); }
+        .btn-send span, .btn-send i { position: relative; z-index: 1; }
+        .btn-send i { font-style: normal; font-size: 1rem; }
+
+        /* Success state */
+        .cf-success {
+            display: none;
+            padding: 48px 40px;
+            background: #F3F3F0;
+            border-left: 2px solid var(--gold);
+            animation: fadeUp 0.5s ease forwards;
+        }
+        .cf-success.active { display: block; }
+        .cf-success h3 {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        .cf-success h3 em { font-style: italic; color: #999; }
+        .cf-success p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.75;
+            font-weight: 300;
+        }
+        .cf-success p strong { color: #1A1A1A; font-weight: 600; }
+
+
+        /* ════════════════════════════════════════
+           BOTTOM STRIP — Location / Footer
+        ════════════════════════════════════════ */
+        .contact-bottom {
+            background: #1A1A1A;
+            color: #F5F5F5;
+            padding: 70px 6%;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-bottom-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .bottom-brand .logo-text {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .bottom-brand .logo-text span { color: var(--gold); }
+        .bottom-brand p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 280px;
+        }
+        .bottom-col h4 {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .bottom-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .bottom-col ul li a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: color 0.2s ease;
+        }
+        .bottom-col ul li a:hover { color: var(--gold); }
+
+        .contact-copyright {
+            max-width: 1300px;
+            margin: 48px auto 0;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 1px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+
+        /* ════════════════════════════════════════
+           RESPONSIVE
+        ════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .contact-body { gap: 60px; }
+        }
+
+        @media (max-width: 900px) {
+            .contact-body {
+                grid-template-columns: 1fr;
+                gap: 0;
+                padding-bottom: 80px;
+            }
+            .contact-details {
+                position: static;
+                padding-top: 50px;
+                padding-bottom: 50px;
+                border-bottom: 1px solid #E8E8E4;
+            }
+            .contact-form-wrap { padding-top: 50px; }
+            .contact-bottom-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .bottom-brand { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 600px) {
+            .contact-statement h1 { letter-spacing: -0.5px; }
+            .cf-row { grid-template-columns: 1fr; gap: 24px; }
+            .cf-submit-row { flex-direction: column; align-items: flex-start; }
+            .cf-privacy { max-width: 100%; }
+            .btn-send { width: 100%; justify-content: center; }
+            .contact-bottom-inner { grid-template-columns: 1fr; }
+            .bottom-brand { grid-column: auto; }
+        }
+    </style>
+</head>
+<body class="light-page">
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="bookings.html" class="btn-menu-outline">Book Now</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+
+    <!-- ════════════════════════════════════════
+         OPENING STATEMENT
+    ════════════════════════════════════════ -->
+    <section class="contact-statement">
+        <div class="statement-eyebrow">
+            <span>Get In Touch</span>
+        </div>
+        <h1>Say<br><em>hello.</em></h1>
+        <div class="full-rule"></div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════
+         MAIN BODY
+    ════════════════════════════════════════ -->
+    <div class="contact-body">
+
+        <!-- ── LEFT — Details ── -->
+        <aside class="contact-details">
+
+            <div class="detail-block">
+                <div class="detail-block-label">Email</div>
+                <div class="detail-block-value">
+                    <a href="mailto:booking@richistudio.com">booking@richistudio.com</a>
+                </div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-block-label">Based In</div>
+                <div class="detail-block-value">
+                    North East England<br>
+                    <span style="font-size:1rem; color:#aaa; font-style:italic;">Available to travel</span>
+                </div>
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <div class="detail-block-label" style="margin-bottom:18px;">Follow Along</div>
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <span class="social-icon">in</span>
+                    <span class="social-name">Instagram</span>
+                    <span class="social-handle">@richistudios</span>
+                </a>
+                <a href="#" class="social-link">
+                    <span class="social-icon">f</span>
+                    <span class="social-name">Facebook</span>
+                    <span class="social-handle">Richi Studios</span>
+                </a>
+                <a href="#" class="social-link">
+                    <span class="social-icon" style="font-size:0.6rem; letter-spacing:0;">Hi</span>
+                    <span class="social-name">Hitched</span>
+                    <span class="social-handle">Ricardo Afrika</span>
+                </a>
+            </div>
+
+            <div class="response-note">
+                <p><strong>Typical response time: 48 hours.</strong><br>
+                For urgent enquiries or to check availability for a specific date, email directly at booking@richistudio.com.</p>
+            </div>
+
+        </aside>
+
+
+        <!-- ── RIGHT — Form ── -->
+        <div class="contact-form-wrap">
+
+            <div class="form-section-label">Send a Message</div>
+            <h2 class="form-section-title">Tell Ricardo what<br>you're <em>thinking</em></h2>
+
+            <form id="contact-form" novalidate>
+
+                <div class="cf-row">
+                    <div class="cf-group" id="cfg-name">
+                        <label>Your Name <span style="color:var(--gold)">*</span></label>
+                        <input type="text" id="cf-name" placeholder="Full name" autocomplete="name">
+                        <span class="cf-error-msg">Please enter your name</span>
+                    </div>
+                    <div class="cf-group" id="cfg-email">
+                        <label>Email Address <span style="color:var(--gold)">*</span></label>
+                        <input type="email" id="cf-email" placeholder="you@example.com" autocomplete="email">
+                        <span class="cf-error-msg">Please enter a valid email</span>
+                    </div>
+                </div>
+
+                <div class="cf-row">
+                    <div class="cf-group" id="cfg-phone">
+                        <label>Phone Number</label>
+                        <input type="tel" id="cf-phone" placeholder="+44 000 000 0000" autocomplete="tel">
+                    </div>
+                    <div class="cf-group" id="cfg-subject">
+                        <label>Subject <span style="color:var(--gold)">*</span></label>
+                        <select id="cf-subject">
+                            <option value="" disabled selected>What's this about?</option>
+                            <option>Wedding Enquiry</option>
+                            <option>Portrait Session</option>
+                            <option>Personal Branding</option>
+                            <option>Commercial Project</option>
+                            <option>Engagement Shoot</option>
+                            <option>General Question</option>
+                            <option>Collaboration</option>
+                            <option>Something Else</option>
+                        </select>
+                        <span class="cf-error-msg">Please select a subject</span>
+                    </div>
+                </div>
+
+                <div class="cf-row full" style="margin-bottom: 8px;">
+                    <div class="cf-group" id="cfg-message">
+                        <label>Message <span style="color:var(--gold)">*</span></label>
+                        <textarea id="cf-message" placeholder="Share your ideas, ask a question, or just say hello — Ricardo reads every message personally." maxlength="800"></textarea>
+                        <span class="cf-error-msg">Please write a message</span>
+                    </div>
+                </div>
+                <div class="char-count"><span id="char-remaining">800</span> characters remaining</div>
+
+                <div class="cf-submit-row">
+                    <p class="cf-privacy">Your details are only used to respond to your enquiry and are never shared.</p>
+                    <button type="submit" class="btn-send">
+                        <span>Send Message</span>
+                        <i>→</i>
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Success state -->
+            <div class="cf-success" id="cf-success">
+                <h3>Message <em>received</em></h3>
+                <p>Thank you for reaching out. Ricardo will read your message and get back to you within <strong>48 hours</strong>. In the meantime, feel free to browse the portfolio.</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════
+         BOTTOM STRIP
+    ════════════════════════════════════════ -->
+    <footer class="contact-bottom">
+        <div class="contact-bottom-inner">
+            <div class="bottom-brand">
+                <div class="logo-text">RICHI<span>.</span></div>
+                <p>Portrait, lifestyle, event and beauty photography based in North East England. Creating imagery that feels lived-in, textured, and unapologetically real.</p>
+            </div>
+            <div class="bottom-col">
+                <h4>Navigate</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="bookings.html">Book Now</a></li>
+                </ul>
+            </div>
+            <div class="bottom-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html#weddings">Weddings</a></li>
+                    <li><a href="services.html#engagements">Engagements</a></li>
+                    <li><a href="services.html#portraits">Portraits</a></li>
+                    <li><a href="services.html#commercial">Commercial</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="contact-copyright">
+            <span>© 2026 Richi Studios. All rights reserved.</span>
+            <span>Developed by The Mystic Techie</span>
+        </div>
+    </footer>
+
+
+    <!-- ── CHATBOT ── -->
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">Hi! Have a question before you reach out? I'm happy to help point you in the right direction. 😊</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask me anything...">
+            <button id="send-chat">&#9658;</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Chat with me</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+
+    <script src="script.js"></script>
+    <script>
+        // ── Contact form validation & submit ──
+        const form    = document.getElementById('contact-form');
+        const success = document.getElementById('cf-success');
+
+        const rules = [
+            { id: 'cf-name',    fg: 'cfg-name',    check: v => v.trim().length > 1 },
+            { id: 'cf-email',   fg: 'cfg-email',   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+            { id: 'cf-subject', fg: 'cfg-subject',  check: v => v !== '' },
+            { id: 'cf-message', fg: 'cfg-message',  check: v => v.trim().length > 5 },
+        ];
+
+        // Clear errors on input
+        document.querySelectorAll('.cf-group input, .cf-group select, .cf-group textarea').forEach(el => {
+            el.addEventListener('input', () => el.closest('.cf-group').classList.remove('error'));
+        });
+
+        // Character counter
+        const msgArea  = document.getElementById('cf-message');
+        const counter  = document.getElementById('char-remaining');
+        if (msgArea && counter) {
+            msgArea.addEventListener('input', () => {
+                const remaining = 800 - msgArea.value.length;
+                counter.textContent = remaining;
+                counter.style.color = remaining < 80 ? '#c0392b' : '#C0C0BC';
+            });
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            let valid = true;
+            rules.forEach(({ id, fg, check }) => {
+                const el  = document.getElementById(id);
+                const fge = document.getElementById(fg);
+                if (!check(el.value)) {
+                    fge.classList.add('error');
+                    valid = false;
+                } else {
+                    fge.classList.remove('error');
+                }
+            });
+
+            if (!valid) return;
+
+            // Simulate send
+            const btn = form.querySelector('.btn-send');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Sending…';
+
+            setTimeout(() => {
+                form.style.display = 'none';
+                success.classList.add('active');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
