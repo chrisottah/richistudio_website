@@ -5,12 +5,437 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services | RICHI STUDIOS</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body.light-page {
+            background: #FAFAF8;
+            color: #1A1A1A;
+            overflow-y: auto;
+            height: auto;
+        }
 
-    <nav class="navbar scrolled">
-        <div class="container nav-container">
+        /* ── PAGE HERO ── */
+        .page-hero {
+            padding: 180px 6% 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: end;
+        }
+        .page-hero-left span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .page-hero-left h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1.1;
+        }
+        .page-hero-left h1 em { font-style: italic; color: #555; }
+        .page-hero-right p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #555;
+            font-weight: 300;
+            max-width: 460px;
+        }
+        .hero-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, var(--gold), #E8E8E4);
+            margin: 0 auto;
+            max-width: calc(100% - 12%);
+        }
+
+        /* ── SERVICE INTRO TABS ── */
+        .category-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: rgba(250,250,248,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E8E8E4;
+            padding: 0 6%;
+        }
+        .category-nav-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+        .cat-tab {
+            padding: 20px 30px;
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #999;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 400;
+            font-family: var(--sans);
+        }
+        .cat-tab:hover, .cat-tab.active { color: #1A1A1A; border-bottom-color: var(--gold); }
+
+        /* ── MAIN SERVICES LAYOUT ── */
+        .services-wrap {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 6%;
+        }
+
+        /* ── CATEGORY BLOCK ── */
+        .service-category {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid #E8E8E4;
+        }
+        .service-category:last-child { border-bottom: none; }
+
+        .category-header {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-bottom: 60px;
+        }
+        .category-header-label {
+            position: sticky;
+            top: 160px;
+        }
+        .category-header-label span {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .category-header-label h2 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #1A1A1A;
+        }
+        .category-header-label h2 em { font-style: italic; }
+        .category-intro {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #555;
+            font-weight: 300;
+            padding-top: 8px;
+        }
+
+        /* ── PACKAGE CARDS ── */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #E8E8E4;
+        }
+        .packages-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+        .packages-grid.one-col { grid-template-columns: 1fr; background: transparent; }
+
+        .pkg-card {
+            background: #FAFAF8;
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pkg-card:hover { background: #fff; }
+        .pkg-card.featured {
+            background: #1A1A1A;
+            color: #F5F5F5;
+        }
+        .pkg-card.featured:hover { background: #222; }
+
+        /* Gold accent strip on featured */
+        .pkg-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gold);
+        }
+
+        .pkg-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+        .pkg-name {
+            font-family: var(--serif);
+            font-size: 1.7rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .pkg-card.featured .pkg-name { color: #fff; }
+        .pkg-tagline {
+            font-size: 0.88rem;
+            color: #888;
+            margin-bottom: 28px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .pkg-card.featured .pkg-tagline { color: rgba(255,255,255,0.55); }
+
+        .pkg-price {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .pkg-price-note {
+            font-size: 0.72rem;
+            color: #aaa;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .pkg-divider {
+            width: 40px;
+            height: 1px;
+            background: #E0E0DC;
+            margin-bottom: 28px;
+        }
+        .pkg-card.featured .pkg-divider { background: rgba(255,255,255,0.2); }
+
+        .pkg-includes {
+            list-style: none;
+            margin-bottom: 36px;
+            flex: 1;
+        }
+        .pkg-includes li {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: #555;
+            padding: 6px 0;
+            padding-left: 18px;
+            position: relative;
+            font-weight: 300;
+        }
+        .pkg-card.featured .pkg-includes li { color: rgba(255,255,255,0.65); }
+        .pkg-includes li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        .pkg-cta {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid #1A1A1A;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            font-weight: 400;
+        }
+        .pkg-cta:hover { background: #1A1A1A; color: #fff; }
+        .pkg-card.featured .pkg-cta {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .pkg-card.featured .pkg-cta:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* ── SINGLE ITEM (Engagement, Commercial) ── */
+        .single-service {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: #E8E8E4;
+        }
+        .single-service-content {
+            background: #FAFAF8;
+            padding: 56px 48px;
+        }
+        .single-service-visual {
+            background: url('images/hero/hero2.webp') center center / cover no-repeat;
+            min-height: 340px;
+        }
+
+        /* ── COMMERCIAL BLOCK ── */
+        .commercial-block {
+            background: #1A1A1A;
+            color: #F5F5F5;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .commercial-left h3 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .commercial-left h3 em { font-style: italic; color: var(--gold); }
+        .commercial-left p {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 36px;
+        }
+        .commercial-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .comm-tag {
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+        .commercial-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .commercial-right p {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-style: italic;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        /* ── CTA STRIP ── */
+        .services-cta {
+            padding: 100px 6%;
+            text-align: center;
+            background: #FAFAF8;
+        }
+        .services-cta span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .services-cta h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 300;
+            max-width: 640px;
+            margin: 0 auto 18px;
+            line-height: 1.2;
+        }
+        .services-cta h2 em { font-style: italic; color: #555; }
+        .services-cta p {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        .btn-dark {
+            display: inline-block;
+            padding: 18px 48px;
+            background: #1A1A1A;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-dark:hover { background: var(--gold); color: #000; }
+        .btn-outline-dark {
+            display: inline-block;
+            padding: 18px 48px;
+            border: 1px solid #1A1A1A;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-outline-dark:hover { background: #1A1A1A; color: #fff; }
+
+        .services-footer {
+            background: #111;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .packages-grid { grid-template-columns: 1fr 1fr; }
+            .packages-grid.two-col { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .page-hero { grid-template-columns: 1fr; gap: 30px; }
+            .category-header { grid-template-columns: 1fr; gap: 20px; }
+            .category-header-label { position: static; }
+            .single-service { grid-template-columns: 1fr; }
+            .single-service-visual { min-height: 220px; }
+            .commercial-block { grid-template-columns: 1fr; gap: 40px; padding: 50px 30px; }
+            .packages-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .pkg-card { padding: 36px 28px; }
+            .category-nav-inner { gap: 0; }
+            .cat-tab { padding: 16px 18px; font-size: 0.65rem; }
+            .services-cta .btn-dark,
+            .services-cta .btn-outline-dark { display: block; margin: 10px auto; max-width: 280px; text-align: center; }
+        }
+    </style>
+</head>
+<body class="light-page">
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-container">
             <a href="index.html" class="logo">RICHI<span>.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -20,74 +445,297 @@
                 <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="bookings.html" class="btn-menu-outline">Book Now</a></li>
             </ul>
-            <div class="hamburger"><span></span><span></span></div>
+            <div class="hamburger"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
-    <header class="page-header container">
-        <div class="header-content section-padding">
-            <span class="subtitle">The Investment</span>
-            <h1 class="reveal visible">Editorial <em>&</em> Commercial Services</h1>
-            <div class="header-line"></div>
+    <!-- ── PAGE HERO ── -->
+    <section class="page-hero">
+        <div class="page-hero-left">
+            <span>What We Offer</span>
+            <h1>Services &amp;<br><em>Packages</em></h1>
         </div>
-    </header>
+        <div class="page-hero-right">
+            <p>Every session is a collaboration. Whether you're planning a wedding, building a brand, or simply want to exist beautifully on camera — there's a package crafted for you.</p>
+        </div>
+    </section>
 
-    <section class="services-wrapper container">
-        <div class="service-block reveal visible">
-            <div class="service-category">
-                <h2>Weddings</h2>
-                <p>Preserving the rhythm and connection of your most significant day.</p>
+    <div class="hero-divider"></div>
+
+    <!-- ── STICKY CATEGORY NAV ── -->
+    <nav class="category-nav">
+        <div class="category-nav-inner">
+            <a href="#weddings" class="cat-tab active">Weddings</a>
+            <a href="#engagements" class="cat-tab">Engagements</a>
+            <a href="#portraits" class="cat-tab">Portraits</a>
+            <a href="#commercial" class="cat-tab">Commercial</a>
+        </div>
+    </nav>
+
+    <div class="services-wrap">
+
+        <!-- ══════════════════════════════════════
+             01. WEDDINGS
+        ══════════════════════════════════════ -->
+        <section class="service-category" id="weddings">
+            <div class="category-header">
+                <div class="category-header-label">
+                    <span>01 / Wedding</span>
+                    <h2>Told the<br>way it <em>felt</em></h2>
+                </div>
+                <p class="category-intro">
+                    Comprehensive storytelling from preparation through reception. Every package is built on the belief that your wedding images should feel as alive as the day itself — intimate, editorial, and completely authentic.
+                </p>
             </div>
-            <div class="service-list">
-                <div class="item">
-                    <div class="item-head">
-                        <h3>Full-Day Wedding</h3>
-                        <span class="item-price">£2195</span>
-                    </div>
-                    <p>10 Hours coverage. From preparation to the afterparty. 400-600+ edited images.</p>
-                    <a href="bookings.html?service=wedding-full" class="link-btn">Inquire Now &rarr;</a>
+
+            <div class="packages-grid">
+                <!-- Full Day -->
+                <div class="pkg-card featured">
+                    <span class="pkg-badge">Most Popular</span>
+                    <h3 class="pkg-name">Full-Day<br>Wedding</h3>
+                    <p class="pkg-tagline">Comprehensive storytelling from preparation through reception and afterparty.</p>
+                    <div class="pkg-price">£2,195</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Up to 10 hours of coverage</li>
+                        <li>Bridal prep through to afterparty</li>
+                        <li>400–600+ fully edited images</li>
+                        <li>Private online gallery</li>
+                        <li>Flash drive presentation (high-res)</li>
+                        <li>Cinematic highlight slideshow</li>
+                        <li>Pre-wedding consultation</li>
+                        <li>Optional: golden hour couple shoot</li>
+                    </ul>
+                    <a href="bookings.html?service=wedding-full" class="pkg-cta">Book This Package</a>
                 </div>
-                <div class="item">
-                    <div class="item-head">
-                        <h3>Half-Day Moments</h3>
-                        <span class="item-price">£1295</span>
-                    </div>
-                    <p>6 Hours coverage. Perfect for intimate gatherings and intentional celebrations.</p>
-                    <a href="bookings.html?service=wedding-photography" class="link-btn">Inquire Now &rarr;</a>
+
+                <!-- Half Day -->
+                <div class="pkg-card">
+                    <h3 class="pkg-name">Half-Day<br>Moments</h3>
+                    <p class="pkg-tagline">Ideal for smaller celebrations, destination vows, and intentional gatherings.</p>
+                    <div class="pkg-price">£1,295</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Up to 6 hours of coverage</li>
+                        <li>Bridal prep through to reception</li>
+                        <li>All edited images in a private gallery</li>
+                        <li>Cinematic highlight slideshow</li>
+                        <li>Pre-wedding consultation</li>
+                    </ul>
+                    <a href="bookings.html?service=wedding-half" class="pkg-cta">Book This Package</a>
                 </div>
+
+                <!-- Ceremony Only -->
+                <div class="pkg-card">
+                    <h3 class="pkg-name">Ceremony<br>Only</h3>
+                    <p class="pkg-tagline">For intimate weddings, registry offices, or couples who want key moments captured.</p>
+                    <div class="pkg-price">£795</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Up to 3 hours of coverage</li>
+                        <li>Guest arrival through post-ceremony portraits</li>
+                        <li>All edited images in an online gallery</li>
+                        <li>Pre-wedding consultation</li>
+                    </ul>
+                    <a href="bookings.html?service=wedding-ceremony" class="pkg-cta">Book This Package</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             02. ENGAGEMENTS
+        ══════════════════════════════════════ -->
+        <section class="service-category" id="engagements">
+            <div class="category-header">
+                <div class="category-header-label">
+                    <span>02 / Engagement</span>
+                    <h2>Your story,<br><em>before</em><br>the big day</h2>
+                </div>
+                <p class="category-intro">
+                    A relaxed session designed to celebrate your story before the wedding day. Ideal for save-the-dates, wedding websites, and announcements — and the perfect opportunity to get comfortable in front of the camera together.
+                </p>
+            </div>
+
+            <div class="single-service">
+                <div class="single-service-content">
+                    <h3 class="pkg-name" style="font-family:var(--serif); font-size:1.9rem; font-weight:300; margin-bottom:8px;">Engagement Session<br><em style="font-style:italic; color:#888;">/ Pre-Wedding Shoot</em></h3>
+                    <div class="pkg-price" style="font-family:var(--serif); font-size:2.8rem; font-weight:300; color:var(--gold); margin:20px 0 4px;">£395</div>
+                    <div class="pkg-price-note" style="font-size:0.72rem; color:#aaa; letter-spacing:1px; text-transform:uppercase; margin-bottom:32px;">Starting from</div>
+                    <div class="pkg-divider" style="width:40px; height:1px; background:#E0E0DC; margin-bottom:28px;"></div>
+                    <ul class="pkg-includes">
+                        <li>60–90 minute relaxed session</li>
+                        <li>Style consultation beforehand</li>
+                        <li>1–2 locations of your choice</li>
+                        <li>Private online gallery</li>
+                        <li>60+ fully edited images</li>
+                    </ul>
+                    <a href="bookings.html?service=engagement" class="pkg-cta" style="display:inline-block; padding:14px 32px; border:1px solid #1A1A1A; color:#1A1A1A; text-decoration:none; font-size:0.72rem; letter-spacing:2.5px; text-transform:uppercase; transition:all 0.3s ease; margin-top:8px;">Book Your Session</a>
+                </div>
+                <div class="single-service-visual" style="background-image: url('images/hero/hero3.webp');"></div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             03. PORTRAITS
+        ══════════════════════════════════════ -->
+        <section class="service-category" id="portraits">
+            <div class="category-header">
+                <div class="category-header-label">
+                    <span>03 / Portrait</span>
+                    <h2>Seen the<br>way you<br><em>deserve</em></h2>
+                </div>
+                <p class="category-intro">
+                    From family connections to personal brands and professional headshots — portrait sessions are built around making you feel at ease, so the camera captures who you actually are, not a performance of it.
+                </p>
+            </div>
+
+            <div class="packages-grid">
+                <!-- Family / Birthday -->
+                <div class="pkg-card">
+                    <span class="pkg-badge" style="background:rgba(247,198,0,0.15); color:var(--gold);">Portrait</span>
+                    <h3 class="pkg-name">Birthday &amp;<br>Family Sessions</h3>
+                    <p class="pkg-tagline">Authentic, lifestyle-focused imagery that captures connection, joy, and personality.</p>
+                    <div class="pkg-price">£195</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Relaxed, guided session</li>
+                        <li>Indoor or outdoor locations</li>
+                        <li>Edited images in online gallery</li>
+                        <li>Print-ready high-resolution files</li>
+                    </ul>
+                    <a href="bookings.html?service=portrait-family" class="pkg-cta">Book This Session</a>
+                </div>
+
+                <!-- Personal Branding -->
+                <div class="pkg-card featured">
+                    <span class="pkg-badge">Brand Identity</span>
+                    <h3 class="pkg-name">Personal<br>Branding</h3>
+                    <p class="pkg-tagline">Strategic imagery for entrepreneurs, creatives and professionals building cohesive visual platforms.</p>
+                    <div class="pkg-price">£495</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Pre-shoot brand strategy call</li>
+                        <li>Multiple outfits &amp; looks</li>
+                        <li>Multiple styled locations</li>
+                        <li>Large edited image gallery</li>
+                        <li>Content ready for all platforms</li>
+                    </ul>
+                    <a href="bookings.html?service=branding" class="pkg-cta">Book This Session</a>
+                </div>
+
+                <!-- Headshots -->
+                <div class="pkg-card">
+                    <span class="pkg-badge" style="background:rgba(247,198,0,0.15); color:var(--gold);">Professional</span>
+                    <h3 class="pkg-name">Headshots &amp;<br>Graduation</h3>
+                    <p class="pkg-tagline">Clean, modern portraits for LinkedIn, corporate profiles, and speaking engagements.</p>
+                    <div class="pkg-price">£99</div>
+                    <div class="pkg-price-note">Starting from</div>
+                    <div class="pkg-divider"></div>
+                    <ul class="pkg-includes">
+                        <li>Focused 30–45 min session</li>
+                        <li>Multiple edited selects</li>
+                        <li>Clean backgrounds &amp; natural settings</li>
+                        <li>Fast turnaround delivery</li>
+                    </ul>
+                    <a href="bookings.html?service=headshots" class="pkg-cta">Book This Session</a>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /.services-wrap -->
+
+    <!-- ══════════════════════════════════════
+         04. COMMERCIAL (Full-width dark block)
+    ══════════════════════════════════════ -->
+    <section id="commercial" style="padding: 80px 0 0;">
+        <div class="services-wrap" style="margin-bottom:0; padding-bottom:0;">
+            <div class="category-header">
+                <div class="category-header-label">
+                    <span>04 / Commercial</span>
+                    <h2>Visual work<br>that <em>sells</em></h2>
+                </div>
+                <p class="category-intro">
+                    Brand imagery that communicates before a word is read. From product photography to lifestyle campaigns and editorial features — commercial work is quoted on a per-project basis to ensure every deliverable is exactly right for your brief.
+                </p>
             </div>
         </div>
 
-        <div class="service-block reveal visible">
-            <div class="service-category">
-                <h2>Portraits</h2>
-                <p>Sculpting light to celebrate confidence, individuality, and strength.</p>
+        <div class="commercial-block">
+            <div class="commercial-left">
+                <h3>Built to your<br><em>brief</em></h3>
+                <p>Commercial and editorial projects are scoped individually — because no two brand stories are the same. Get in touch to discuss your vision and receive a custom quote.</p>
+                <div class="commercial-types">
+                    <span class="comm-tag">Product Photography</span>
+                    <span class="comm-tag">Lifestyle Campaigns</span>
+                    <span class="comm-tag">Editorial Features</span>
+                    <span class="comm-tag">Creative Direction</span>
+                </div>
             </div>
-            <div class="service-list">
-                <div class="item">
-                    <div class="item-head">
-                        <h3>Personal Branding</h3>
-                        <span class="item-price">£495</span>
-                    </div>
-                    <p>Strategic visual storytelling for entrepreneurs and modern creatives.</p>
-                    <a href="bookings.html?service=photo-session" class="link-btn">Inquire Now &rarr;</a>
-                </div>
-                <div class="item">
-                    <div class="item-head">
-                        <h3>Professional Headshots</h3>
-                        <span class="item-price">£99</span>
-                    </div>
-                    <p>Clean, textured portraits for LinkedIn and professional profiles.</p>
-                    <a href="bookings.html?service=headshots" class="link-btn">Inquire Now &rarr;</a>
-                </div>
+            <div class="commercial-right">
+                <p>"I look for rhythm and connection. Light that tells a story before a single expression is made."</p>
+                <a href="bookings.html?service=commercial" class="pkg-cta" style="border-color:var(--gold); color:var(--gold); display:inline-block; padding:14px 32px; text-decoration:none; font-size:0.72rem; letter-spacing:2.5px; text-transform:uppercase; transition:all 0.3s ease; margin-top:10px;">Request a Quote</a>
             </div>
         </div>
     </section>
 
-    <footer class="minimal-footer">
-        <p>Copyright 2026 Richi Studios. Developed by The Mystic Techie.</p>
+    <!-- ── CTA ── -->
+    <section class="services-cta">
+        <span>Ready to Begin?</span>
+        <h2>Let's make something<br><em>you'll keep forever</em></h2>
+        <p>Get in touch to discuss your session and find the right package for you.</p>
+        <a href="bookings.html" class="btn-dark">Book a Session</a>
+        <a href="about.html" class="btn-outline-dark">About Ricardo</a>
+    </section>
+
+    <!-- ── CHATBOT ── -->
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">Hi! I'm Ricardo's virtual assistant. Looking at our services? I can help you find the right package and answer any questions!</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask about packages...">
+            <button id="send-chat">&#9658;</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Chat with me</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+    <footer class="services-footer">
+        <p>Copyright 2026 Richi Studios &mdash; Developed by The Mystic Techie</p>
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Smooth-scroll category nav highlight
+        const catTabs = document.querySelectorAll('.cat-tab');
+        const sections = document.querySelectorAll('.service-category, #commercial');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 200) current = s.id;
+            });
+            catTabs.forEach(t => {
+                t.classList.remove('active');
+                if (t.getAttribute('href') === '#' + current) t.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

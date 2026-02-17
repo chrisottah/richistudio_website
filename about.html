@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Ricardo | RICHI STUDIOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page-level overrides ── */
+        body.light-page {
+            background: #FAFAF8;
+            color: #1A1A1A;
+            overflow-y: auto;
+            height: auto;
+        }
+
+        /* ── ABOUT HERO ── */
+        .about-hero {
+            position: relative;
+            height: 100vh;
+            min-height: 640px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+        .about-hero-img {
+            position: absolute;
+            inset: 0;
+            background: url('images/hero/hero1.webp') center center / cover no-repeat;
+            transform-origin: center;
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to   { transform: scale(1.08); }
+        }
+        .about-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(0,0,0,0.82) 0%,
+                rgba(0,0,0,0.30) 55%,
+                rgba(0,0,0,0.05) 100%
+            );
+        }
+        .about-hero-text {
+            position: relative;
+            z-index: 5;
+            padding: 0 6% 80px;
+            max-width: 900px;
+        }
+        .about-hero-eyebrow {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+            font-family: var(--sans);
+            font-weight: 600;
+        }
+        .about-hero-text h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .about-hero-text h1 em { font-style: italic; }
+        .about-hero-text p {
+            color: rgba(255,255,255,0.75);
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            max-width: 560px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ── NARRATIVE SECTION ── */
+        .about-narrative {
+            padding: 120px 6%;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .narrative-label {
+            position: sticky;
+            top: 140px;
+        }
+        .narrative-label h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 300;
+            line-height: 1.2;
+            color: #1A1A1A;
+        }
+        .narrative-label h2 em { font-style: italic; color: #555; }
+        .gold-rule {
+            width: 48px;
+            height: 2px;
+            background: var(--gold);
+            margin-top: 24px;
+        }
+        .narrative-body p {
+            font-size: 1.05rem;
+            line-height: 1.95;
+            color: #3A3A3A;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .narrative-body p:last-child { margin-bottom: 0; }
+        .narrative-body p strong {
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        .pull-quote {
+            border-left: 3px solid var(--gold);
+            padding: 12px 0 12px 30px;
+            margin: 40px 0;
+            font-family: var(--serif);
+            font-size: 1.45rem;
+            font-style: italic;
+            font-weight: 300;
+            color: #1A1A1A;
+            line-height: 1.5;
+        }
+
+        /* ── VISUAL BREAK — Full-width image strip ── */
+        .image-strip {
+            width: 100%;
+            height: 480px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+        }
+        .strip-img {
+            overflow: hidden;
+        }
+        .strip-img div {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+        .strip-img:hover div { transform: scale(1.04); }
+
+        /* ── PHILOSOPHY / VALUES ── */
+        .values-section {
+            padding: 120px 6%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .values-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .values-header span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        .values-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #E8E8E4;
+        }
+        .value-card {
+            background: #FAFAF8;
+            padding: 50px 40px;
+            transition: background 0.3s ease;
+        }
+        .value-card:hover { background: #fff; }
+        .value-number {
+            font-family: var(--serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #E0E0DC;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .value-card h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 14px;
+            color: #1A1A1A;
+        }
+        .value-card p {
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* ── EXPERIENCE BAR ── */
+        .experience-section {
+            background: #1A1A1A;
+            color: #F5F5F5;
+            padding: 100px 6%;
+        }
+        .experience-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .experience-left h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        .experience-left h2 em { color: var(--gold); font-style: italic; }
+        .experience-left p {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .stat-item {
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 30px;
+        }
+        .stat-number {
+            font-family: var(--serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-top: 10px;
+        }
+
+        /* ── CTA STRIP ── */
+        .about-cta {
+            padding: 120px 6%;
+            text-align: center;
+            background: #FAFAF8;
+        }
+        .about-cta span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .about-cta h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.2;
+        }
+        .about-cta h2 em { font-style: italic; color: #555; }
+        .btn-dark {
+            display: inline-block;
+            padding: 18px 48px;
+            background: #1A1A1A;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: background 0.3s ease, color 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-dark:hover { background: var(--gold); color: #000; }
+        .btn-outline-dark {
+            display: inline-block;
+            padding: 18px 48px;
+            border: 1px solid #1A1A1A;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-outline-dark:hover { background: #1A1A1A; color: #fff; }
+
+        /* ── ABOUT FOOTER ── */
+        .about-footer {
+            background: #111;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .about-narrative { grid-template-columns: 1fr; gap: 40px; }
+            .narrative-label { position: static; }
+            .values-grid { grid-template-columns: 1fr; }
+            .image-strip { grid-template-columns: 1fr; height: auto; }
+            .strip-img { height: 280px; }
+            .experience-inner { grid-template-columns: 1fr; gap: 50px; }
+            .stats-row { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        }
+        @media (max-width: 600px) {
+            .about-hero-text { padding-bottom: 60px; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .about-cta .btn-dark,
+            .about-cta .btn-outline-dark { display: block; margin: 10px auto; max-width: 280px; text-align: center; }
+        }
+    </style>
+</head>
+<body class="light-page">
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="bookings.html" class="btn-menu-outline">Book Now</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="about-hero">
+        <div class="about-hero-img"></div>
+        <div class="about-hero-overlay"></div>
+        <div class="about-hero-text">
+            <span class="about-hero-eyebrow">The Photographer</span>
+            <h1>Ricardo<br><em>Afrika</em></h1>
+            <p>Portrait. Lifestyle. Event. Beauty.<br>
+               Based in North East England — creating imagery that feels<br>
+               lived-in, textured, and unapologetically real.</p>
+        </div>
+    </section>
+
+    <!-- ── NARRATIVE ── -->
+    <section class="about-narrative">
+        <div class="narrative-label">
+            <h2>The<br><em>Story</em><br>Behind<br>the Lens</h2>
+            <div class="gold-rule"></div>
+        </div>
+        <div class="narrative-body">
+            <p>
+                I've been photographing since <strong>2015</strong>, but for me, this has never been 
+                just about taking pictures. It's about <strong>observing energy</strong>. Light on skin. 
+                Movement in a room. The pause between moments that most people miss.
+            </p>
+            <p>
+                My work lives in that in-between space — where bold meets calm, where 
+                direction meets spontaneity.
+            </p>
+            <div class="pull-quote">
+                "When the camera disappears and what's left is honesty."
+            </div>
+            <p>
+                In lifestyle photography, I look for rhythm and connection. In events, I 
+                chase rare moments — the blur of motion, the exchange of glances, the 
+                electricity in the air. In beauty, I lean into detail and form, sculpting 
+                light to celebrate confidence, individuality, and strength.
+            </p>
+            <p>
+                I don't overcomplicate shoots. I create space. I guide softly. I let 
+                people settle into themselves. <strong>That's when the magic happens.</strong>
+            </p>
+            <p>
+                Being based in the <strong>North East of England</strong> influences my work more than 
+                I probably realise — open coastlines, industrial textures, shifting skies. 
+                There's grit and softness here, and I carry both into what I create.
+            </p>
+            <p>
+                If you're drawn to imagery that feels expressive, a little cinematic, 
+                and entirely authentic — let's create something powerful together.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── IMAGE STRIP ── -->
+    <div class="image-strip">
+        <div class="strip-img">
+            <div style="background-image: url('images/portfolio/portfolio1.webp')"></div>
+        </div>
+        <div class="strip-img">
+            <div style="background-image: url('images/hero/hero2.webp')"></div>
+        </div>
+        <div class="strip-img">
+            <div style="background-image: url('images/portfolio/portfolio2.webp')"></div>
+        </div>
+    </div>
+
+    <!-- ── PHILOSOPHY ── -->
+    <section class="values-section">
+        <div class="values-header">
+            <span>The Philosophy</span>
+            <h2>What drives every frame</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <h3>Authenticity Over Performance</h3>
+                <p>I create space for people to settle into themselves. The best moments are never posed — they emerge when the camera becomes invisible.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <h3>Light as a Language</h3>
+                <p>Every shoot is a study in light — how it lands on skin, wraps around form, and tells a story before a single expression is made.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <h3>Place as Character</h3>
+                <p>The North East is in my bones. Open coastlines, industrial grit, and shifting skies — the landscape is never just a backdrop.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── EXPERIENCE / STATS ── -->
+    <section class="experience-section">
+        <div class="experience-inner">
+            <div class="experience-left">
+                <h2>A decade of<br><em>real</em> moments</h2>
+                <p>Since 2015, every session has deepened a commitment to honest, editorial imagery across weddings, portraits, events, and commercial work.</p>
+            </div>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years shooting</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Sessions delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Disciplines mastered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="about-cta">
+        <span>Let's Create Together</span>
+        <h2>Ready to build something<br><em>powerful?</em></h2>
+        <a href="bookings.html" class="btn-dark">Book a Session</a>
+        <a href="services.html" class="btn-outline-dark">View Services</a>
+    </section>
+
+    <!-- ── CHATBOT ── -->
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">Hi! I'm Ricardo's virtual assistant. Ask me about sessions, pricing, or what it's like working with Ricardo!</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask me anything...">
+            <button id="send-chat">&#9658;</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Chat with me</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+    <footer class="about-footer">
+        <p>Copyright 2026 Richi Studios &mdash; Developed by The Mystic Techie</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
