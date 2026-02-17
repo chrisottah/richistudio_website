@@ -5,77 +5,1020 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Session | RICHI STUDIOS</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body class="bg-dark text-light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <nav class="navbar scrolled">
-        <div class="container nav-container">
+    <style>
+        /* ── RESET FOR THIS PAGE ── */
+        body.booking-page {
+            background: #0A0A0A;
+            color: #F5F5F5;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: auto;
+            min-height: 100vh;
+        }
+        html:has(body.booking-page) {
+            height: auto;
+            overflow: visible;
+        }
+
+        /* ── BACKGROUND TEXTURE ── */
+        body.booking-page::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 10% 20%, rgba(247,198,0,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 90% 80%, rgba(247,198,0,0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAVBAR override ── */
+        body.booking-page .navbar {
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 22px 0;
+        }
+
+        /* ── SPLIT LAYOUT ── */
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ════════════════════════
+           LEFT PANEL — Editorial
+        ════════════════════════ */
+        .booking-left {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 0 70px 0;
+        }
+
+        .booking-left-img {
+            position: absolute;
+            inset: 0;
+            background: url('images/hero/hero1.webp') center center / cover no-repeat;
+            animation: subtleZoom 25s ease-in-out infinite alternate;
+        }
+        @keyframes subtleZoom {
+            from { transform: scale(1); }
+            to   { transform: scale(1.06); }
+        }
+
+        .booking-left-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                160deg,
+                rgba(0,0,0,0.15) 0%,
+                rgba(0,0,0,0.55) 50%,
+                rgba(0,0,0,0.88) 100%
+            );
+        }
+
+        .booking-left-content {
+            position: relative;
+            z-index: 5;
+            padding: 0 56px;
+        }
+
+        .left-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .left-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 1px;
+            background: var(--gold);
+        }
+        .left-eyebrow span {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .booking-left-content h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.4rem, 4vw, 3.8rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        .booking-left-content h1 em {
+            font-style: italic;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .booking-left-content p {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.55);
+            font-weight: 300;
+            max-width: 380px;
+            margin-bottom: 40px;
+        }
+
+        /* Small trust indicators */
+        .trust-row {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+        .trust-item::before {
+            content: '';
+            display: block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+
+
+        /* ════════════════════════
+           RIGHT PANEL — Form
+        ════════════════════════ */
+        .booking-right {
+            padding: 120px 64px 80px;
+            display: flex;
+            flex-direction: column;
+            background: #0f0f0f;
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ── Progress ── */
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 60px;
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            position: relative;
+            cursor: default;
+        }
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: calc(50% + 14px);
+            width: calc(100% - 28px);
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            transition: background 0.5s ease;
+        }
+        .progress-step.done:not(:last-child)::after { background: var(--gold); }
+
+        .step-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            transition: all 0.4s ease;
+            background: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .progress-step.active .step-dot {
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(247,198,0,0.12);
+        }
+        .progress-step.done .step-dot {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+            font-size: 0.65rem;
+        }
+        .step-label {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            white-space: nowrap;
+            transition: color 0.4s ease;
+        }
+        .progress-step.active .step-label { color: rgba(255,255,255,0.7); }
+        .progress-step.done .step-label   { color: var(--gold); }
+
+        /* ── Form panels ── */
+        .form-panel {
+            display: none;
+            flex-direction: column;
+            gap: 28px;
+            flex: 1;
+            animation: panelIn 0.4s ease;
+        }
+        .form-panel.active { display: flex; }
+
+        @keyframes panelIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .panel-header { margin-bottom: 4px; }
+        .panel-header span {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .panel-header h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-top: 8px;
+            color: #F5F5F5;
+        }
+        .panel-header h2 em { font-style: italic; color: rgba(255,255,255,0.5); }
+
+        /* ── Field Groups ── */
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .field-row.full { grid-template-columns: 1fr; }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+
+        .field-group label {
+            font-size: 0.65rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+        .field-group:focus-within label { color: var(--gold); }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: #F5F5F5;
+            padding: 12px 0;
+            font-size: 0.95rem;
+            font-family: var(--sans);
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            border-radius: 0;
+            width: 100%;
+        }
+
+        .field-group input:focus,
+        .field-group select:focus,
+        .field-group textarea:focus {
+            border-bottom-color: var(--gold);
+        }
+
+        /* Underline grow animation */
+        .field-group::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.35s ease;
+            pointer-events: none;
+        }
+        .field-group:focus-within::after { width: 100%; }
+
+        .field-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(247,198,0,0.6)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            padding-right: 24px;
+        }
+        .field-group select option {
+            background: #1a1a1a;
+            color: #F5F5F5;
+        }
+        .field-group select option:disabled { color: rgba(255,255,255,0.3); }
+
+        .field-group textarea {
+            resize: none;
+            min-height: 90px;
+            line-height: 1.7;
+        }
+
+        /* Required star */
+        .req { color: var(--gold); margin-left: 2px; }
+
+        /* Validation state */
+        .field-group.error label { color: #e05555; }
+        .field-group.error input,
+        .field-group.error select { border-bottom-color: #e05555; }
+        .field-error-msg {
+            font-size: 0.7rem;
+            color: #e05555;
+            margin-top: -4px;
+            display: none;
+        }
+        .field-group.error .field-error-msg { display: block; }
+
+        /* ── Navigation buttons ── */
+        .form-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 16px;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            transition: color 0.3s ease;
+            font-family: var(--sans);
+        }
+        .btn-back::before {
+            content: '←';
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .btn-back:hover { color: rgba(255,255,255,0.7); }
+        .btn-back:hover::before { transform: translateX(-4px); }
+        .btn-back:disabled { opacity: 0; pointer-events: none; }
+
+        .btn-next {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 36px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-family: var(--sans);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-next::after {
+            content: '→';
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .btn-next:hover {
+            background: #fff;
+            box-shadow: 0 8px 30px rgba(247,198,0,0.2);
+        }
+        .btn-next:hover::after { transform: translateX(4px); }
+        .btn-next:active { transform: scale(0.98); }
+
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 44px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--sans);
+        }
+        .btn-submit:hover { background: #fff; box-shadow: 0 10px 40px rgba(247,198,0,0.25); }
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-submit::after { content: '✦'; font-size: 0.7rem; }
+
+        /* ── Summary (Step 3) ── */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .summary-item {
+            padding: 18px 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .summary-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.05); }
+        .summary-item.full {
+            grid-column: 1 / -1;
+            border-right: none;
+        }
+        .summary-label {
+            font-size: 0.6rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 6px;
+        }
+        .summary-value {
+            font-size: 0.9rem;
+            color: #F5F5F5;
+            font-weight: 300;
+        }
+        .summary-value.empty { color: rgba(255,255,255,0.2); font-style: italic; }
+
+        /* ── Success screen ── */
+        .success-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex: 1;
+            gap: 24px;
+            padding: 40px 0;
+            animation: panelIn 0.6s ease;
+        }
+        .success-screen.active { display: flex; }
+
+        .success-icon {
+            width: 80px; height: 80px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+            animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+        }
+        @keyframes successPop {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+
+        .success-screen h2 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+        }
+        .success-screen h2 em { font-style: italic; color: rgba(255,255,255,0.5); }
+        .success-screen p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 360px;
+        }
+        .success-screen p strong { color: var(--gold); font-weight: 400; }
+        .success-back {
+            display: inline-block;
+            padding: 14px 36px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+        .success-back:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* ── Booking footer ── */
+        .booking-footer-note {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.25);
+            line-height: 1.7;
+            text-align: center;
+        }
+        .booking-footer-note a { color: var(--gold); text-decoration: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .booking-right { padding: 110px 44px 70px; }
+        }
+
+        @media (max-width: 900px) {
+            .booking-layout { grid-template-columns: 1fr; }
+            .booking-left {
+                position: relative;
+                height: auto;
+                min-height: unset;
+                max-height: unset;
+                padding-top: 110px;
+                padding-bottom: 60px;
+            }
+            .booking-left-img {
+                position: absolute;
+                inset: 0;
+                min-height: 100%;
+            }
+            .booking-left-content {
+                padding: 0 28px;
+                position: relative;
+                z-index: 5;
+            }
+            .booking-left-content h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            .booking-left-content p {
+                font-size: 0.9rem;
+            }
+            .trust-row { gap: 12px; }
+            .booking-right { padding: 60px 28px 60px; border-left: none; border-top: 1px solid rgba(255,255,255,0.05); }
+            .progress-bar { margin-bottom: 40px; }
+        }
+
+        @media (max-width: 600px) {
+            .field-row { grid-template-columns: 1fr; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .summary-item:nth-child(odd) { border-right: none; }
+            .summary-item.full { grid-column: 1; }
+            .step-label { display: none; }
+            .booking-right { padding: 50px 20px 50px; }
+            .btn-next, .btn-submit { padding: 16px 28px; }
+        }
+    </style>
+</head>
+<body class="booking-page">
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-container">
             <a href="index.html" class="logo">RICHI<span>.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="services.html">Services</a></li>
+                <li><a href="bookings.html" class="btn-menu-outline active">Book Now</a></li>
             </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
-    <section class="booking-section container section-padding">
-        <div class="form-wrapper">
-            <h2>Secure Your <em>Date</em></h2>
-            <p>Tell me about your vision, and let's create something powerful.</p>
 
-            <form id="booking-form" class="luxury-form">
-                <div class="form-group">
-                    <input type="text" id="name" placeholder="Your Name *" required>
-                    <input type="email" id="email" placeholder="Email *" required>
+    <!-- ════════════════════════════
+         SPLIT LAYOUT
+    ════════════════════════════ -->
+    <div class="booking-layout">
+
+        <!-- ── LEFT — Editorial Panel ── -->
+        <div class="booking-left">
+            <div class="booking-left-img"></div>
+            <div class="booking-left-overlay"></div>
+            <div class="booking-left-content">
+                <div class="left-eyebrow"><span>Begin Here</span></div>
+                <h1>Let's create<br>something<br><em>remarkable</em></h1>
+                <p>Every great image starts with a conversation. Fill in the details below and Ricardo will be in touch within 48 hours to discuss your vision.</p>
+                <div class="trust-row">
+                    <div class="trust-item">Response within 48 hours</div>
+                    <div class="trust-item">No obligation consultation</div>
+                    <div class="trust-item">Based in North East England</div>
+                    <div class="trust-item">10+ years of experience</div>
                 </div>
-
-                <div class="form-group">
-                    <input type="tel" id="phone" placeholder="Phone *" required>
-                    <select id="job-type" required>
-                        <option value="" disabled selected>Select Job Type</option>
-                        <option value="commercial">Commercial / Advertising</option>
-                        <option value="event">Event</option>
-                        <option value="family-portrait">Family Portrait</option>
-                        <option value="photo-session">Photo Session (eg Album cover, Birthday shoot)</option>
-                        <option value="headshots">Headshots</option>
-                        <option value="maternity">Maternity</option>
-                        <option value="newborn">Newborn</option>
-                        <option value="pre-wedding">Pre-wedding Shoot</option>
-                        <option value="graduation">Graduation Photo or Video</option>
-                        <option value="proposal">Proposal Shoot</option>
-                        <option value="real-estate">Real Estate and Architecture</option>
-                        <option value="video-dop">Video Production (DOP)</option>
-                        <option value="wedding-full">Wedding Full Coverage</option>
-                        <option value="wedding-photography">Wedding Photography</option>
-                        <option value="wedding-video">Wedding Video Production</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <input type="date" id="event-date" placeholder="Main Shoot Date *" required>
-                    <input type="text" id="location" placeholder="Event / Shoot Location *" required>
-                </div>
-
-                <div class="form-group">
-                    <select id="referral" required>
-                        <option value="" disabled selected>How did you hear about us? *</option>
-                        <option value="hitched">Hitched</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="google">Google</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="referral">Referral</option>
-                        <option value="word-of-mouth">Word of mouth</option>
-                    </select>
-                </div>
-
-                <textarea id="additional-info" rows="5" placeholder="Additional Information"></textarea>
-
-                <button type="submit" class="btn-outline-hero">Submit Inquiry</button>
-            </form>
+            </div>
         </div>
-    </section>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <!-- ── RIGHT — Form Panel ── -->
+        <div class="booking-right">
+
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-dot">1</div>
+                    <span class="step-label">You</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-dot">2</div>
+                    <span class="step-label">The Shoot</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-dot">3</div>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+
+            <form id="booking-form" novalidate>
+
+                <!-- ══ STEP 1 — About You ══ -->
+                <div class="form-panel active" id="step-1">
+                    <div class="panel-header">
+                        <span>Step 01 of 03</span>
+                        <h2>Tell me about<br><em>yourself</em></h2>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group" id="fg-name">
+                            <label>Your Name <span class="req">*</span></label>
+                            <input type="text" id="field-name" placeholder="Full name" autocomplete="name">
+                            <span class="field-error-msg">Please enter your name</span>
+                        </div>
+                        <div class="field-group" id="fg-email">
+                            <label>Email Address <span class="req">*</span></label>
+                            <input type="email" id="field-email" placeholder="you@example.com" autocomplete="email">
+                            <span class="field-error-msg">Please enter a valid email</span>
+                        </div>
+                    </div>
+
+                    <div class="field-row full">
+                        <div class="field-group" id="fg-phone">
+                            <label>Phone Number <span class="req">*</span></label>
+                            <input type="tel" id="field-phone" placeholder="+44 000 000 0000" autocomplete="tel">
+                            <span class="field-error-msg">Please enter your phone number</span>
+                        </div>
+                    </div>
+
+                    <div class="field-row full">
+                        <div class="field-group" id="fg-source">
+                            <label>How did you hear about us? <span class="req">*</span></label>
+                            <select id="field-source">
+                                <option value="" disabled selected>Choose your option</option>
+                                <option>Hitched Event</option>
+                                <option>Facebook</option>
+                                <option>Google</option>
+                                <option>Instagram</option>
+                                <option>Online Directory</option>
+                                <option>Partner Referral</option>
+                                <option>Trade Show</option>
+                                <option>Word of Mouth</option>
+                            </select>
+                            <span class="field-error-msg">Please let us know how you found us</span>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" disabled>Back</button>
+                        <button type="button" class="btn-next" data-next="2">Continue</button>
+                    </div>
+                </div>
+
+                <!-- ══ STEP 2 — The Shoot ══ -->
+                <div class="form-panel" id="step-2">
+                    <div class="panel-header">
+                        <span>Step 02 of 03</span>
+                        <h2>About your<br><em>session</em></h2>
+                    </div>
+
+                    <div class="field-row full">
+                        <div class="field-group" id="fg-jobtype">
+                            <label>Job Type <span class="req">*</span></label>
+                            <select id="field-jobtype">
+                                <option value="" disabled selected>Select Job Type</option>
+                                <optgroup label="— Weddings">
+                                    <option value="wedding-full">Wedding Full Coverage</option>
+                                    <option value="wedding-photo">Wedding Photography</option>
+                                    <option value="wedding-video">Wedding Video Production</option>
+                                </optgroup>
+                                <optgroup label="— Portrait Sessions">
+                                    <option value="portrait">Photo Session (Album Cover, Birthday Shoot, etc.)</option>
+                                    <option value="portrait-family">Family Portrait</option>
+                                    <option value="headshots">Headshots</option>
+                                    <option value="graduation">Graduation</option>
+                                    <option value="maternity">Maternity</option>
+                                    <option value="newborn">Newborn</option>
+                                </optgroup>
+                                <optgroup label="— Milestone & Special">
+                                    <option value="engagement">Pre-Wedding Shoot</option>
+                                    <option value="proposal">Proposal Shoot</option>
+                                </optgroup>
+                                <optgroup label="— Commercial & Media">
+                                    <option value="commercial">Commercial / Advertising</option>
+                                    <option value="event">Event</option>
+                                    <option value="real-estate">Real Estate and Architecture</option>
+                                    <option value="video-dop">Video Production (DOP)</option>
+                                </optgroup>
+                                <optgroup label="— Branding">
+                                    <option value="branding">Personal Branding</option>
+                                </optgroup>
+                            </select>
+                            <span class="field-error-msg">Please select a job type</span>
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group" id="fg-date">
+                            <label>Main Shoot / Event Date <span class="req">*</span></label>
+                            <input type="date" id="field-date">
+                            <span class="field-error-msg">Please select a date</span>
+                        </div>
+                        <div class="field-group" id="fg-location">
+                            <label>Event / Shoot Location <span class="req">*</span></label>
+                            <input type="text" id="field-location" placeholder="City or venue name">
+                            <span class="field-error-msg">Please enter a location</span>
+                        </div>
+                    </div>
+
+                    <div class="field-row full">
+                        <div class="field-group">
+                            <label>Additional Information</label>
+                            <textarea id="field-notes" placeholder="Tell Ricardo anything else that will help him understand your vision — mood, references, specific moments you want captured..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" data-back="1">Back</button>
+                        <button type="button" class="btn-next" data-next="3">Review Enquiry</button>
+                    </div>
+                </div>
+
+                <!-- ══ STEP 3 — Confirm ══ -->
+                <div class="form-panel" id="step-3">
+                    <div class="panel-header">
+                        <span>Step 03 of 03</span>
+                        <h2>Review &amp;<br><em>confirm</em></h2>
+                    </div>
+
+                    <div class="summary-grid" id="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-label">Name</div>
+                            <div class="summary-value" id="sum-name">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Email</div>
+                            <div class="summary-value" id="sum-email">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Phone</div>
+                            <div class="summary-value" id="sum-phone">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">How You Found Us</div>
+                            <div class="summary-value" id="sum-source">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Job Type</div>
+                            <div class="summary-value" id="sum-jobtype">—</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Date</div>
+                            <div class="summary-value" id="sum-date">—</div>
+                        </div>
+                        <div class="summary-item full">
+                            <div class="summary-label">Location</div>
+                            <div class="summary-value" id="sum-location">—</div>
+                        </div>
+                        <div class="summary-item full" id="sum-notes-row">
+                            <div class="summary-label">Additional Notes</div>
+                            <div class="summary-value" id="sum-notes">—</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" data-back="2">Edit Details</button>
+                        <button type="submit" class="btn-submit">Send Enquiry</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Success Screen -->
+            <div class="success-screen" id="success-screen">
+                <div class="success-icon">✦</div>
+                <h2>Enquiry<br><em>received</em></h2>
+                <p>Thank you — Ricardo will review your details and be in touch within <strong>48 hours</strong> to discuss your session. Check your inbox at the email you provided.</p>
+                <a href="index.html" class="success-back">Back to Home</a>
+            </div>
+
+            <p class="booking-footer-note">
+                Your details are used solely to respond to your enquiry.<br>
+                Questions? Email <a href="/cdn-cgi/l/email-protection#60020f0f0b090e0720120903080913141504090f4e030f0d"><span class="__cf_email__" data-cfemail="7c1e13131715121b3c0e151f14150f0809181513521f1311">[email&#160;protected]</span></a>
+            </p>
+
+        </div><!-- /.booking-right -->
+    </div><!-- /.booking-layout -->
+
+
+    <!-- ── CHATBOT ── -->
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">Ready to book? I can help you figure out which session type fits best, or answer any questions before you submit! 📋</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask before you book...">
+            <button id="send-chat">&#9658;</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Need help?</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+    <script>
+    // ─────────────────────────────────────────────
+    // MULTI-STEP FORM LOGIC
+    // ─────────────────────────────────────────────
+    const steps     = document.querySelectorAll('.form-panel');
+    const progSteps = document.querySelectorAll('.progress-step');
+    const form      = document.getElementById('booking-form');
+    const success   = document.getElementById('success-screen');
+
+    let currentStep = 1;
+
+    // ── Validation rules per step ──
+    const validators = {
+        1: [
+            { id: 'field-name',   fg: 'fg-name',   check: v => v.trim().length > 1 },
+            { id: 'field-email',  fg: 'fg-email',  check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+            { id: 'field-phone',  fg: 'fg-phone',  check: v => v.trim().length > 5 },
+            { id: 'field-source', fg: 'fg-source', check: v => v !== '' },
+        ],
+        2: [
+            { id: 'field-jobtype',  fg: 'fg-jobtype',  check: v => v !== '' },
+            { id: 'field-date',     fg: 'fg-date',     check: v => v !== '' },
+            { id: 'field-location', fg: 'fg-location', check: v => v.trim().length > 1 },
+        ],
+    };
+
+    function validateStep(step) {
+        if (!validators[step]) return true;
+        let valid = true;
+        validators[step].forEach(({ id, fg, check }) => {
+            const el  = document.getElementById(id);
+            const fge = document.getElementById(fg);
+            if (!check(el.value)) {
+                fge.classList.add('error');
+                valid = false;
+            } else {
+                fge.classList.remove('error');
+            }
+        });
+        return valid;
+    }
+
+    function goToStep(n) {
+        // Hide current
+        document.getElementById('step-' + currentStep).classList.remove('active');
+        progSteps[currentStep - 1].classList.remove('active');
+        if (n > currentStep) progSteps[currentStep - 1].classList.add('done');
+
+        currentStep = n;
+
+        // Show new
+        document.getElementById('step-' + currentStep).classList.add('active');
+        progSteps.forEach((ps, i) => {
+            if (i + 1 < currentStep) { ps.classList.add('done'); ps.classList.remove('active'); }
+            if (i + 1 === currentStep) { ps.classList.add('active'); ps.classList.remove('done'); }
+        });
+
+        // Populate summary on step 3
+        if (currentStep === 3) populateSummary();
+
+        // Scroll to top of form panel
+        document.querySelector('.booking-right').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Next / Back buttons ──
+    document.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const next = parseInt(btn.dataset.next);
+            if (validateStep(currentStep)) goToStep(next);
+        });
+    });
+
+    document.querySelectorAll('.btn-back').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const back = parseInt(btn.dataset.back);
+            goToStep(back);
+        });
+    });
+
+    // ── Clear error on input ──
+    document.querySelectorAll('.field-group input, .field-group select').forEach(el => {
+        el.addEventListener('input', () => {
+            el.closest('.field-group').classList.remove('error');
+        });
+    });
+
+    // ── Populate summary ──
+    function populateSummary() {
+        const get   = id => document.getElementById(id);
+        const setEl = (id, val) => {
+            const el = document.getElementById(id);
+            el.textContent = val || '—';
+            el.className = 'summary-value' + (val ? '' : ' empty');
+        };
+
+        setEl('sum-name',    get('field-name').value);
+        setEl('sum-email',   get('field-email').value);
+        setEl('sum-phone',   get('field-phone').value);
+        setEl('sum-source',  get('field-source').value);
+
+        // Job type — get the option text
+        const jt = get('field-jobtype');
+        setEl('sum-jobtype', jt.options[jt.selectedIndex]?.text || '');
+
+        // Date — format nicely
+        const raw = get('field-date').value;
+        if (raw) {
+            const d = new Date(raw + 'T00:00:00');
+            setEl('sum-date', d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+        } else {
+            setEl('sum-date', '');
+        }
+
+        setEl('sum-location', get('field-location').value);
+        setEl('sum-notes',    get('field-notes').value || 'None provided');
+    }
+
+    // ── Submit ──
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const submitBtn = form.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        // Simulate async submission
+        setTimeout(() => {
+            form.style.display = 'none';
+            document.querySelector('.progress-bar').style.display = 'none';
+            success.classList.add('active');
+        }, 1200);
+    });
+
+    // ── URL param pre-select (from services page) ──
+    const params = new URLSearchParams(window.location.search);
+    const svc    = params.get('service');
+    if (svc) {
+        const sel = document.getElementById('field-jobtype');
+        if (sel) {
+            // Try exact match first, then partial
+            for (let opt of sel.options) {
+                if (opt.value === svc || opt.value.includes(svc) || svc.includes(opt.value)) {
+                    sel.value = opt.value;
+                    break;
+                }
+            }
+        }
+    }
