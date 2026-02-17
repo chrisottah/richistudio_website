@@ -1,41 +1,528 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Gallery | Richi Studio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | RICHI STUDIOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body.light-page {
+            background: #FAFAF8;
+            color: #1A1A1A;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: auto;
+        }
+
+        /* ── PAGE HERO ── */
+        .portfolio-hero {
+            padding: 170px 6% 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: end;
+        }
+        .portfolio-hero-left {
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.1s forwards;
+        }
+        .portfolio-hero-left span {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .portfolio-hero-left h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: #1A1A1A;
+        }
+        .portfolio-hero-left h1 em { font-style: italic; color: #888; }
+
+        .portfolio-hero-right {
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.25s forwards;
+        }
+        .portfolio-hero-right p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #555;
+            font-weight: 300;
+            max-width: 440px;
+        }
+        .instagram-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+            padding: 10px 20px;
+            border: 1px solid #E0E0DC;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .instagram-pill:hover {
+            border-color: var(--gold);
+            color: #1A1A1A;
+        }
+        .instagram-pill::before {
+            content: '';
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: livePulse 2s infinite ease-in-out;
+        }
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50%       { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── DIVIDER ── */
+        .portfolio-divider {
+            max-width: calc(100% - 12%);
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(to right, var(--gold), #E8E8E4 60%, transparent);
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.4s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ── INSTAGRAM FEED SECTION ── */
+        .feed-section {
+            padding: 80px 6% 120px;
+            max-width: 1300px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+
+        .feed-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .feed-header-left h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            color: #1A1A1A;
+        }
+        .feed-header-left h2 em { font-style: italic; color: #888; }
+        .feed-header-left p {
+            font-size: 0.82rem;
+            color: #888;
+            margin-top: 6px;
+            font-weight: 300;
+        }
+        .feed-ig-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border: 1px solid #1A1A1A;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1A1A1A;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .feed-ig-link:hover { background: #1A1A1A; color: #fff; }
+        .feed-ig-link span { font-size: 1rem; }
+
+
+        /* ══════════════════════════════════════════════════════
+           BEHOLD.SO EMBED CONTAINER
+           ─────────────────────────────────────────────────────
+           HOW TO SET UP (one-time, takes ~5 minutes):
+
+           1. Go to https://www.behold.so and click "Get Started Free"
+           2. Connect Ricardo's Instagram account when prompted
+           3. In the Behold dashboard, click "Create a Feed"
+           4. Choose layout: GRID  |  Columns: 3 (desktop)
+           5. Set the number of posts to show: 12 or 18
+           6. Click "Get Embed Code" — you'll see a <div> and a <script> tag
+           7. Copy the unique Feed ID from the script src URL.
+              It looks like: https://cdn.behold.so/widget/...?feedId=XXXXXXXX
+           8. Replace the value of BEHOLD_FEED_ID below with that ID:
+        ══════════════════════════════════════════════════════ */
+
+        /* The wrapper that holds the Behold embed */
+        .behold-wrapper {
+            width: 100%;
+            min-height: 400px;
+            position: relative;
+        }
+
+        /* Loading skeleton shown before the feed appears */
+        .feed-loading {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            width: 100%;
+        }
+        .skeleton-cell {
+            aspect-ratio: 1;
+            background: linear-gradient(90deg, #EEEEEA 25%, #F5F5F2 50%, #EEEEEA 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Style overrides pushed into the Behold widget via CSS variables */
+        /* Behold respects these custom property names natively */
+        behold-widget {
+            --behold-gap: 3px;
+            --behold-border-radius: 0px;
+            --behold-overlay-color: rgba(10, 10, 10, 0.55);
+            --behold-overlay-font-family: 'Cormorant Garamond', serif;
+            --behold-overlay-font-size: 1rem;
+            --behold-overlay-color-text: #F5F5F5;
+            width: 100%;
+            display: block;
+        }
+
+        /* ── FALLBACK GRID (shown if Behold hasn't been set up yet) ── */
+        .feed-fallback {
+            display: none; /* Hidden by default — shown via JS if needed */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            border: 1px dashed #D8D8D4;
+            text-align: center;
+            gap: 16px;
+        }
+        .feed-fallback.visible { display: flex; }
+        .feed-fallback-icon {
+            width: 60px; height: 60px;
+            border: 1px solid #E0E0DC;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #bbb;
+        }
+        .feed-fallback h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #1A1A1A;
+        }
+        .feed-fallback p {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.75;
+            max-width: 400px;
+            font-weight: 300;
+        }
+        .feed-fallback a {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #1A1A1A;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+            margin-top: 8px;
+        }
+        .feed-fallback a:hover { background: var(--gold); color: #000; }
+
+        /* ── CTA STRIP ── */
+        .portfolio-cta {
+            background: #1A1A1A;
+            padding: 80px 6%;
+            text-align: center;
+        }
+        .portfolio-cta span {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .portfolio-cta h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            color: #fff;
+            max-width: 600px;
+            margin: 0 auto 36px;
+            line-height: 1.2;
+        }
+        .portfolio-cta h2 em { font-style: italic; color: rgba(255,255,255,0.5); }
+        .btn-gold {
+            display: inline-block;
+            padding: 18px 48px;
+            background: var(--gold);
+            color: #000;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background 0.3s ease, color 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-gold:hover { background: #fff; }
+        .btn-outline-white {
+            display: inline-block;
+            padding: 18px 48px;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-outline-white:hover { border-color: #fff; color: #fff; }
+
+        /* ── FOOTER ── */
+        .portfolio-footer {
+            background: #111;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .portfolio-hero { grid-template-columns: 1fr; gap: 30px; padding-top: 130px; }
+            .feed-loading { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .feed-header { flex-direction: column; align-items: flex-start; }
+            .portfolio-cta .btn-gold,
+            .portfolio-cta .btn-outline-white { display: block; margin: 8px auto; max-width: 280px; text-align: center; }
+        }
+    </style>
 </head>
+<body class="light-page">
 
-<body>
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="bookings.html" class="btn-menu-outline">Book Now</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
 
-<div class="flash-transition"></div>
-<audio id="shutterSound" src="assets/audio/shutter.mp3"></audio>
 
-<nav class="top-nav">
-  <div>Richi <span class="accent">Studio</span></div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="portfolio.html">Gallery</a>
-    <a href="services.html">Services</a>
-    <a href="contact.html">Contact</a>
-    <span class="theme-toggle">Toggle</span>
-  </div>
-</nav>
+    <!-- ── PAGE HERO ── -->
+    <section class="portfolio-hero">
+        <div class="portfolio-hero-left">
+            <span>The Work</span>
+            <h1>Portfolio &amp;<br><em>Gallery</em></h1>
+        </div>
+        <div class="portfolio-hero-right">
+            <p>Every image here is a real moment — unscripted, unrepeatable. Browse the latest work directly from Ricardo's Instagram, updated every time he posts.</p>
+            <a href="https://www.instagram.com/richistudios" target="_blank" rel="noopener" class="instagram-pill">
+                Live from Instagram
+            </a>
+        </div>
+    </section>
 
-<section class="gallery-section">
-  <h2>Gallery</h2>
-  <div class="gallery-grid" id="instagram-feed"></div>
-</section>
+    <div class="portfolio-divider"></div>
 
-<div class="lightbox">
-  <img id="lightbox-img">
-</div>
 
-<script src="js/main.js"></script>
-<script src="js/theme.js"></script>
-<script src="js/instagram.js"></script>
+    <!-- ══════════════════════════════════════════════════════
+         INSTAGRAM FEED — Powered by Behold.so
+    ══════════════════════════════════════════════════════ -->
+    <section class="feed-section">
+
+        <div class="feed-header">
+            <div class="feed-header-left">
+                <h2>Latest <em>Work</em></h2>
+                <p>Pulled live from Instagram — refreshes automatically with every new post.</p>
+            </div>
+            <a href="https://www.instagram.com/richistudios" target="_blank" rel="noopener" class="feed-ig-link">
+                <span>📷</span> Follow on Instagram
+            </a>
+        </div>
+
+        <div class="behold-wrapper" id="behold-wrapper">
+
+            <!-- ════════════════════════════════════════════════════
+                 LOADING SKELETON — visible while feed loads
+            ════════════════════════════════════════════════════ -->
+            <div class="feed-loading" id="feed-skeleton">
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+                <div class="skeleton-cell"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════
+                 ▼▼▼  RICARDO — PASTE YOUR BEHOLD EMBED HERE  ▼▼▼
+                 ────────────────────────────────────────────────
+                 STEP-BY-STEP SETUP (takes about 5 minutes):
+
+                 1. Open your browser and go to: https://www.behold.so
+                 2. Click "Get Started Free" and sign up
+                 3. Click "Connect Instagram" and log in with your
+                    Instagram account (@richistudios)
+                 4. In the dashboard, click "+ New Feed"
+                 5. Choose these settings:
+                    - Layout: Grid
+                    - Columns: 3
+                    - Posts to show: 12
+                    - Image size: Large
+                 6. Click "Publish Feed" then "Get Embed Code"
+                 7. You will see TWO things to copy — a <div> tag
+                    and a <script> tag. Copy BOTH of them.
+                 8. DELETE the placeholder comment block below
+                    (everything between the ▼▼▼ and ▲▲▲ markers)
+                 9. PASTE your two Behold tags in its place
+                10. Save the file. Done! ✓
+
+                 Your feed will now update automatically every time
+                 you post a new photo to Instagram. No code needed
+                 ever again.
+
+                 EXAMPLE of what you'll paste (yours will have
+                 a different feedId number):
+
+                 <div id="behold-your-unique-id"></div>
+                 <script src="https://w.behold.so/widget.js" type="module"></script>
+
+                 ────────────────────────────────────────────────
+                 ▲▲▲  END OF INSTRUCTIONS  ▲▲▲
+            ════════════════════════════════════════════════════ -->
+
+            <!-- FALLBACK: shown automatically if Behold isn't set up yet -->
+            <div class="feed-fallback" id="feed-fallback">
+                <div class="feed-fallback-icon">📷</div>
+                <h3>Feed coming <em>soon</em></h3>
+                <p>Ricardo's Instagram portfolio will appear here once the feed is connected. In the meantime, follow along on Instagram to see the latest work.</p>
+                <a href="https://www.instagram.com/richistudios" target="_blank" rel="noopener">Follow @richistudios</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ── CTA STRIP ── -->
+    <section class="portfolio-cta">
+        <span>Like What You See?</span>
+        <h2>Let's create something<br><em>together</em></h2>
+        <a href="bookings.html" class="btn-gold">Book a Session</a>
+        <a href="services.html" class="btn-outline-white">View Services</a>
+    </section>
+
+
+    <!-- ── FOOTER ── -->
+    <footer class="portfolio-footer">
+        <p>Copyright 2026 Richi Studios &mdash; Developed by The Mystic Techie</p>
+    </footer>
+
+
+    <!-- ── CHATBOT ── -->
+    <div id="chat-widget" class="chat-container">
+        <div class="chat-header">
+            <div class="chat-profile">
+                <img src="images/ricardo-profile.webp" alt="Ricardo Afrika">
+                <div>
+                    <span class="chat-name">Ricardo Afrika</span>
+                    <span class="chat-status">Online Concierge</span>
+                </div>
+            </div>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-msg">See something you love? I can tell you more about Ricardo's style or help you book a similar session! 📸</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask me anything...">
+            <button id="send-chat">&#9658;</button>
+        </div>
+    </div>
+    <button id="chat-toggle" class="chat-trigger">
+        <span class="chat-badge">Chat with me</span>
+        <img src="images/ricardo-profile.webp" alt="Chat with Ricardo">
+    </button>
+
+
+    <script src="script.js"></script>
+    <script>
+        // ── Show fallback if Behold widget hasn't loaded after 4 seconds ──
+        // This means the embed code hasn't been pasted in yet.
+        const skeleton = document.getElementById('feed-skeleton');
+        const fallback = document.getElementById('feed-fallback');
+
+        // Check if a Behold widget element exists in the DOM
+        const beholdIsSetUp = document.querySelector('[id^="behold-"]') &&
+                              !document.getElementById('behold-wrapper').contains(
+                                  document.getElementById('feed-fallback')
+                                      .previousElementSibling
+                              );
+
+        setTimeout(() => {
+            // If no real behold widget div is present, show fallback
+            const hasWidget = !!document.querySelector('behold-widget, [id^="behold-your"]');
+            if (!hasWidget) {
+                skeleton.style.display = 'none';
+                fallback.classList.add('visible');
+            } else {
+                skeleton.style.display = 'none';
+            }
+        }, 4000);
+
+        // Also hide skeleton as soon as behold fires its ready event
+        document.addEventListener('beholdReady', () => {
+            skeleton.style.display = 'none';
+        });
+    </script>
 
 </body>
 </html>

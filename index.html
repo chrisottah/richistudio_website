@@ -25,41 +25,33 @@
         </div>
     </nav>
 
+    <!--
+    ═══════════════════════════════════════════════════════════════
+    HOW TO CHANGE THE HERO SLIDER IMAGES (No coding required!)
+    ───────────────────────────────────────────────────────────────
+    Open the file called slider-images.json (same folder as this
+    file). Each slide entry has three things to edit:
+
+      "src"      → the image filename in images/hero/
+      "headline" → the big text shown on the slide
+      "sub"      → the smaller description below the headline
+
+    TO SWAP AN IMAGE:
+      1. Save your new photo into the images/hero/ folder
+         (ideal size: 1920 x 1000 px, saved as .webp or .jpg)
+      2. Open slider-images.json in any text editor
+      3. Update the "src" to your new filename
+      4. Update "headline" and "sub" if you like
+      5. Save. Done! ✓
+
+    TO ADD A SLIDE: copy one { } block, paste after the last one
+    with a comma between them, and fill in your details.
+    TO REMOVE A SLIDE: delete the entire { } block for that slide.
+    ═══════════════════════════════════════════════════════════════
+    -->
     <main class="hero-slider">
-        <div class="slider-container">
-            <div class="slide active">
-                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero1.webp')"></div>
-                <div class="hero-content">
-                    <h1>Capturing the <em>Soul</em> of Light</h1>
-                    <p>Editorial photography based in North East England.</p>
-                    <div class="hero-btns">
-                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
-                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero2.webp')"></div>
-                <div class="hero-content">
-                    <h1>Lived-in & <em>Textured</em></h1>
-                    <p>Portraits that celebrate confidence and individuality.</p>
-                    <div class="hero-btns">
-                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
-                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero/hero3.webp')"></div>
-                <div class="hero-content">
-                    <h1>The <em>Electricity</em> in the Air</h1>
-                    <p>Event photography chasing rare, unmissable moments.</p>
-                    <div class="hero-btns">
-                        <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
-                        <a href="bookings.html" class="btn-outline-hero">Book Now</a>
-                    </div>
-                </div>
-            </div>
+        <div class="slider-container" id="slider-container">
+            <!-- Slides injected automatically from slider-images.json -->
         </div>
         <div class="slider-dots"></div>
     </main>

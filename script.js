@@ -1,35 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ─────────────────────────────────────────────────────────
-    // 1. HERO SLIDER (Homepage only)
+    // 1. HERO SLIDER — driven by slider-images.json
+    //    Ricardo can swap images by editing that file alone.
     // ─────────────────────────────────────────────────────────
-    const slides = document.querySelectorAll('.slide');
-    const dotsContainer = document.querySelector('.slider-dots');
+    const sliderContainer = document.getElementById('slider-container');
+    const dotsContainer   = document.querySelector('.slider-dots');
 
-    if (slides.length > 0 && dotsContainer) {
-        let currentSlide = 0;
+    if (sliderContainer && dotsContainer) {
 
-        slides.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        });
+        function buildSlider(data) {
+            let currentSlide = 0;
 
-        const dots = document.querySelectorAll('.dot');
+            // Build slide elements from JSON data
+            data.forEach((item, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide' + (i === 0 ? ' active' : '');
+                slide.innerHTML = `
+                    <div class="slide-bg" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${item.src}')"></div>
+                    <div class="hero-content">
+                        <h1>${item.headline}</h1>
+                        <p>${item.sub}</p>
+                        <div class="hero-btns">
+                            <a href="portfolio.html" class="btn-outline-hero">View Portfolio</a>
+                            <a href="bookings.html" class="btn-outline-hero">Book Now</a>
+                        </div>
+                    </div>`;
+                sliderContainer.appendChild(slide);
 
-        function goToSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('active');
-            currentSlide = n;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
+                // Dot
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            });
+
+            const slides = document.querySelectorAll('.slide');
+            const dots   = document.querySelectorAll('.dot');
+
+            function goToSlide(n) {
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                currentSlide = n;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+
+            setInterval(() => {
+                goToSlide((currentSlide + 1) % slides.length);
+            }, 6000);
         }
 
-        setInterval(() => {
-            goToSlide((currentSlide + 1) % slides.length);
-        }, 6000);
+        // Fetch slider data from slider-images.json
+        fetch('slider-images.json')
+            .then(res => {
+                if (!res.ok) throw new Error('Could not load slider-images.json');
+                return res.json();
+            })
+            .then(data => buildSlider(data))
+            .catch(() => {
+                // Fallback: if JSON can't be fetched (e.g. opened as a local
+                // file:// without a server), build from these defaults instead.
+                buildSlider([
+                    { src: 'images/hero/hero1.webp', headline: 'Capturing the <em>Soul</em> of Light',   sub: 'Editorial photography based in North East England.' },
+                    { src: 'images/hero/hero2.webp', headline: 'Lived-in &amp; <em>Textured</em>',       sub: 'Portraits that celebrate confidence and individuality.' },
+                    { src: 'images/hero/hero3.webp', headline: 'The <em>Electricity</em> in the Air',    sub: 'Event photography chasing rare, unmissable moments.' },
+                ]);
+            });
     }
 
 
