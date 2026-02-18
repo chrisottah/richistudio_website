@@ -53,15 +53,36 @@ html:has(body.light-page) {
 }
 
 .logo {
-    font-size: 2rem;
     text-decoration: none;
-    color: white;
-    font-family: var(--serif);
-    font-weight: 600;
-    z-index: 1101; /* Always above mobile overlay */
+    z-index: 1101;
     position: relative;
+    display: block;
+    line-height: 0; /* Removes ghost space under inline image */
 }
-.logo span { color: var(--gold); }
+.logo img {
+    height: 44px;   /* Adjust this value to suit Ricardo's logo proportions */
+    width: auto;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+.logo:hover img { opacity: 0.8; }
+
+/* Dark pages (homepage, bookings) → use light logo */
+.logo .logo-light { display: block; }
+.logo .logo-dark  { display: none;  }
+
+/* Light pages (about, services, portfolio, contact) → use dark logo */
+body.light-page .logo .logo-light { display: none;  }
+body.light-page .logo .logo-dark  { display: block; }
+
+/* Mobile menu overlay is always dark background → always light logo */
+@media (max-width: 768px) {
+    .logo .logo-light { display: block !important; }
+    .logo .logo-dark  { display: none  !important; }
+    /* But restore correct logo when menu is closed on light pages */
+    body.light-page:not(:has(.nav-links.active)) .logo .logo-light { display: none  !important; }
+    body.light-page:not(:has(.nav-links.active)) .logo .logo-dark  { display: block !important; }
+}
 
 .nav-links {
     display: flex;

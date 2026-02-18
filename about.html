@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Ricardo | RICHI STUDIOS</title>
-    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -135,12 +135,13 @@
         .image-strip {
             width: 100%;
             height: 480px;
-            overflow: hidden;
             display: grid;
             grid-template-columns: 1fr 1.2fr 1fr;
+            overflow: hidden;
         }
         .strip-img {
             overflow: hidden;
+            position: relative;
         }
         .strip-img div {
             width: 100%;
@@ -327,13 +328,27 @@
             .about-narrative { grid-template-columns: 1fr; gap: 40px; }
             .narrative-label { position: static; }
             .values-grid { grid-template-columns: 1fr; }
-            .image-strip { grid-template-columns: 1fr; height: auto; }
-            .strip-img { height: 280px; }
+            .image-strip {
+                grid-template-columns: 1fr;
+                height: auto;
+                width: 100vw;           /* Bleed to full viewport — no side padding clipping */
+                margin-left: calc(-6vw);/* Offset the parent's 6% padding */
+            }
+            .strip-img {
+                height: 70vw;           /* Tall enough to show the image properly */
+                max-height: 420px;
+            }
+            .strip-img div {
+                height: 100%;
+                background-size: cover;
+                background-position: center center;
+            }
             .experience-inner { grid-template-columns: 1fr; gap: 50px; }
             .stats-row { grid-template-columns: repeat(3, 1fr); gap: 20px; }
         }
         @media (max-width: 600px) {
             .about-hero-text { padding-bottom: 60px; }
+            .strip-img { height: 80vw; max-height: 360px; }
             .stats-row { grid-template-columns: 1fr 1fr; }
             .about-cta .btn-dark,
             .about-cta .btn-outline-dark { display: block; margin: 10px auto; max-width: 280px; text-align: center; }
@@ -345,7 +360,10 @@
     <!-- ── NAVBAR ── -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">RICHI<span>.</span></a>
+            <a href="index.html" class="logo">
+                <img src="images/logo-dark.png" alt="Richi Studios" class="logo-dark">
+                <img src="images/logo-light.png" alt="Richi Studios" class="logo-light">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html" class="active">About</a></li>
@@ -418,10 +436,10 @@
             <div style="background-image: url('images/portfolio/portfolio1.webp')"></div>
         </div>
         <div class="strip-img">
-            <div style="background-image: url('images/portfolio/portfolio2.webp')"></div>
+            <div style="background-image: url('images/hero/hero2.webp')"></div>
         </div>
         <div class="strip-img">
-            <div style="background-image: url('images/portfolio/portfolio3.webp')"></div>
+            <div style="background-image: url('images/portfolio/portfolio2.webp')"></div>
         </div>
     </div>
 
@@ -511,6 +529,6 @@
         <p>Copyright 2026 Richi Studios &mdash; Developed by The Mystic Techie</p>
     </footer>
 
-    <script src="script.js?v=1.1"></script>
+    <script src="script.js"></script>
 </body>
 </html>
